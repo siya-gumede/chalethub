@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 7% 4%;
+    --foreground: 40 20% 94%;
+    --card: 240 7% 4%;
+    --card-foreground: 40 20% 94%;
+    --popover: 240 7% 4%;
+    --popover-foreground: 40 20% 94%;
+    --primary: 43 65% 53%;
+    --primary-foreground: 240 7% 4%;
+    --secondary: 240 6% 10%;
+    --secondary-foreground: 40 20% 94%;
+    --muted: 240 6% 10%;
+    --muted-foreground: 38 10% 68%;
+    --accent: 43 65% 53%;
+    --accent-foreground: 240 7% 4%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 15%;
+    --input: 240 6% 15%;
+    --ring: 43 65% 53%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Typography */
+.font-display {
+  font-family: 'Sora', sans-serif;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Headline styles */
+.headline-xl {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.75rem, 5vw, 5.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.headline-lg {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* Label styles */
+.label-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Body text */
+.body-text {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  line-height: 1.6;
+  color: hsl(38 10% 68%);
+}
+
+/* Notched frame SVG */
+.notched-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.notched-frame svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Grain overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Section base styles */
+.section-pinned {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background image */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Dark panel */
+.dark-panel {
+  background-color: hsl(240 7% 4%);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply inline-flex items-center justify-center px-6 py-3;
+  @apply bg-[#D4A23A] text-[#0B0B0D] font-medium;
+  @apply rounded-lg transition-all duration-300;
+  @apply hover:bg-[#E5B34A] hover:scale-105;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center px-6 py-3;
+  @apply border border-[#F4F1EA]/30 text-[#F4F1EA] font-medium;
+  @apply rounded-lg transition-all duration-300;
+  @apply hover:bg-[#F4F1EA]/10 hover:border-[#F4F1EA]/50;
+}
+
+/* Link styles */
+.link-gold {
+  @apply text-[#D4A23A] font-medium transition-colors duration-300;
+  @apply hover:text-[#E5B34A];
+}
+
+/* Floating card */
+.floating-card {
+  @apply bg-[#0B0B0D] rounded-lg overflow-hidden;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+/* Form styles */
+.form-input {
+  @apply w-full px-4 py-3 bg-[#0B0B0D] border border-[#F4F1EA]/20 rounded-lg;
+  @apply text-[#F4F1EA] placeholder:text-[#B8B2A6]/50;
+  @apply focus:outline-none focus:border-[#D4A23A]/50 focus:ring-1 focus:ring-[#D4A23A]/30;
+  @apply transition-all duration-300;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(240 7% 4%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(240 6% 15%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(240 6% 25%);
+}
+
+/* Animation utilities */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
