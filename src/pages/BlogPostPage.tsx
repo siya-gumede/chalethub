@@ -1,24 +1,81 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Gamepad2, Cpu } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Gamepad2, Cpu, Loader2, AlertCircle } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { PageFooter } from '../components/PageFooter';
-import { getPostBySlug, getRelatedPosts } from '../data/blogPosts';
+import { RichTextRenderer } from '../components/RichTextRenderer';
+import {
+  fetchPostBySlug,
+  fetchRelatedPosts,
+  isContentfulConfigured,
+  type BlogPost,
+} from '../lib/contentful';
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' });
 
 export const BlogPostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const post = slug ? getPostBySlug(slug) : undefined;
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [related, setRelated] = useState<BlogPost[]>([]);
+  const [status, setStatus] = useState<'loading' | 'ready' | 'not-found' | 'error' | 'unconfigured'>(
+    () => (isContentfulConfigured ? 'loading' : 'unconfigured')
+  );
 
-  if (!post) {
+  useEffect(() => {
+    if (!slug || !isContentfulConfigured) return;
+
+    let cancelled = false;
+    // Reset to loading when the slug changes — the standard data-fetching
+    // effect pattern from react.dev (reset state, then fetch, guarded by a
+    // cancelled flag for cleanup).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setStatus('loading');
+
+    fetchPostBySlug(slug)
+      .then(async (data) => {
+        if (cancelled) return;
+        if (!data) {
+          setStatus('not-found');
+          return;
+        }
+        setPost(data);
+        setStatus('ready');
+        const relatedPosts = await fetchRelatedPosts(data.slug, data.category);
+        if (!cancelled) setRelated(relatedPosts);
+      })
+      .catch(() => {
+        if (!cancelled) setStatus('error');
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  if (status === 'loading') {
     return (
       <div className="bg-chalet-black min-h-screen">
         <PageHeader />
-        <div className="px-6 md:px-[8vw] py-32 text-center">
-          <h1 className="headline-lg text-chalet-ivory mb-6">POST NOT FOUND</h1>
-          <p className="body-text mb-8">That entry doesn&rsquo;t exist — or may have moved.</p>
+        <div className="flex items-center gap-3 text-chalet-muted py-32 justify-center">
+          <Loader2 className="w-5 h-5 animate-spin" />
+          Loading post...
+        </div>
+        <PageFooter />
+      </div>
+    );
+  }
+
+  if (status === 'unconfigured') {
+    return (
+      <div className="bg-chalet-black min-h-screen">
+        <PageHeader />
+        <div className="px-6 md:px-[8vw] py-32 text-center max-w-lg mx-auto">
+          <AlertCircle className="w-6 h-6 text-chalet-gold mx-auto mb-4" />
+          <p className="body-text mb-2">Contentful isn&rsquo;t connected yet.</p>
+          <p className="text-chalet-muted text-sm mb-8">
+            Set VITE_CONTENTFUL_SPACE_ID and VITE_CONTENTFUL_ACCESS_TOKEN to see live posts here.
+          </p>
           <Link to="/blog" className="btn-primary inline-flex">
             Back to the Journal
           </Link>
@@ -28,7 +85,27 @@ export const BlogPostPage: React.FC = () => {
     );
   }
 
-  const related = getRelatedPosts(post.slug);
+  if (status === 'not-found' || status === 'error' || !post) {
+    return (
+      <div className="bg-chalet-black min-h-screen">
+        <PageHeader />
+        <div className="px-6 md:px-[8vw] py-32 text-center">
+          <h1 className="headline-lg text-chalet-ivory mb-6">
+            {status === 'error' ? 'SOMETHING WENT WRONG' : 'POST NOT FOUND'}
+          </h1>
+          <p className="body-text mb-8">
+            {status === 'error'
+              ? 'Couldn\u2019t load this post right now. Please try again shortly.'
+              : 'That entry doesn\u2019t exist \u2014 or may have moved.'}
+          </p>
+          <Link to="/blog" className="btn-primary inline-flex">
+            Back to the Journal
+          </Link>
+        </div>
+        <PageFooter />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-chalet-black min-h-screen">
@@ -56,16 +133,18 @@ export const BlogPostPage: React.FC = () => {
           <h1 className="headline-lg text-chalet-ivory mb-6">{post.title.toUpperCase()}</h1>
 
           <p className="text-chalet-muted text-sm mb-12">
-            {formatDate(post.date)} · {post.readTime} · Chalet Hub Studio
+            {formatDate(post.date)} · {post.readTime} · {post.author}
           </p>
 
-          <div className="space-y-6">
-            {post.content.map((paragraph, i) => (
-              <p key={i} className="body-text text-base md:text-lg leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          {post.coverImageUrl && (
+            <img
+              src={post.coverImageUrl}
+              alt={post.title}
+              className="w-full rounded-xl mb-12 border border-chalet-ivory/10"
+            />
+          )}
+
+          <RichTextRenderer document={post.body} />
         </div>
       </article>
 

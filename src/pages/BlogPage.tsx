@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Gamepad2, Cpu } from 'lucide-react';
+import { ArrowRight, Gamepad2, Cpu, Loader2, AlertCircle } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { PageFooter } from '../components/PageFooter';
-import { blogPosts } from '../data/blogPosts';
+import { fetchAllPosts, isContentfulConfigured, type BlogPost } from '../lib/contentful';
 
 type Filter = 'All' | 'Gaming' | 'AI';
 
@@ -11,21 +11,37 @@ const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' });
 
 const categoryIcon = (category: string) =>
-  category === 'Gaming' ? (
-    <Gamepad2 className="w-4 h-4" />
-  ) : (
-    <Cpu className="w-4 h-4" />
-  );
+  category === 'Gaming' ? <Gamepad2 className="w-4 h-4" /> : <Cpu className="w-4 h-4" />;
 
 export const BlogPage: React.FC = () => {
   const [filter, setFilter] = useState<Filter>('All');
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error' | 'unconfigured'>(() =>
+    isContentfulConfigured ? 'loading' : 'unconfigured'
+  );
 
-  const posts = useMemo(() => {
-    const sorted = [...blogPosts].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
-    return filter === 'All' ? sorted : sorted.filter((p) => p.category === filter);
-  }, [filter]);
+  useEffect(() => {
+    if (!isContentfulConfigured) return;
+    let cancelled = false;
+    fetchAllPosts()
+      .then((data) => {
+        if (cancelled) return;
+        setPosts(data);
+        setStatus('ready');
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setStatus('error');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const filteredPosts = useMemo(
+    () => (filter === 'All' ? posts : posts.filter((p) => p.category === filter)),
+    [filter, posts]
+  );
 
   return (
     <div className="bg-chalet-black min-h-screen">
@@ -60,35 +76,65 @@ export const BlogPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Post grid */}
+      {/* Post grid / states */}
       <section className="px-6 md:px-[8vw] py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => (
-            <Link
-              key={post.slug}
-              to={`/blog/${post.slug}`}
-              className="group bg-chalet-charcoal border border-chalet-ivory/10 rounded-xl p-7 flex flex-col hover:border-chalet-gold/40 transition-colors"
-            >
-              <div className="flex items-center gap-2 label-mono text-chalet-gold mb-4">
-                {categoryIcon(post.category)}
-                {post.category}
-              </div>
-              <h2 className="font-display text-xl font-semibold text-chalet-ivory mb-3 leading-snug group-hover:text-chalet-gold transition-colors">
-                {post.title}
-              </h2>
-              <p className="body-text mb-6 flex-1">{post.excerpt}</p>
-              <div className="flex items-center justify-between pt-4 border-t border-chalet-ivory/10">
-                <span className="text-chalet-muted text-xs">
-                  {formatDate(post.date)} · {post.readTime}
-                </span>
-                <ArrowRight className="w-4 h-4 text-chalet-gold transition-transform group-hover:translate-x-1" />
-              </div>
-            </Link>
-          ))}
-        </div>
+        {status === 'loading' && (
+          <div className="flex items-center gap-3 text-chalet-muted py-20 justify-center">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            Loading posts...
+          </div>
+        )}
 
-        {posts.length === 0 && (
-          <p className="body-text text-center py-20">No posts in this category yet.</p>
+        {status === 'unconfigured' && (
+          <div className="max-w-lg mx-auto text-center py-20 border border-dashed border-chalet-ivory/15 rounded-xl">
+            <AlertCircle className="w-6 h-6 text-chalet-gold mx-auto mb-4" />
+            <p className="body-text mb-2">Contentful isn&rsquo;t connected yet.</p>
+            <p className="text-chalet-muted text-sm">
+              Set <code className="font-mono text-chalet-gold">VITE_CONTENTFUL_SPACE_ID</code> and{' '}
+              <code className="font-mono text-chalet-gold">VITE_CONTENTFUL_ACCESS_TOKEN</code> to
+              see live posts here.
+            </p>
+          </div>
+        )}
+
+        {status === 'error' && (
+          <div className="max-w-lg mx-auto text-center py-20 border border-dashed border-chalet-ivory/15 rounded-xl">
+            <AlertCircle className="w-6 h-6 text-chalet-gold mx-auto mb-4" />
+            <p className="body-text">Couldn&rsquo;t load posts right now. Please try again shortly.</p>
+          </div>
+        )}
+
+        {status === 'ready' && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  to={`/blog/${post.slug}`}
+                  className="group bg-chalet-charcoal border border-chalet-ivory/10 rounded-xl p-7 flex flex-col hover:border-chalet-gold/40 transition-colors"
+                >
+                  <div className="flex items-center gap-2 label-mono text-chalet-gold mb-4">
+                    {categoryIcon(post.category)}
+                    {post.category}
+                  </div>
+                  <h2 className="font-display text-xl font-semibold text-chalet-ivory mb-3 leading-snug group-hover:text-chalet-gold transition-colors">
+                    {post.title}
+                  </h2>
+                  <p className="body-text mb-6 flex-1">{post.excerpt}</p>
+                  <div className="flex items-center justify-between pt-4 border-t border-chalet-ivory/10">
+                    <span className="text-chalet-muted text-xs">
+                      {formatDate(post.date)} · {post.readTime}
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-chalet-gold transition-transform group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {filteredPosts.length === 0 && (
+              <p className="body-text text-center py-20">No posts in this category yet.</p>
+            )}
+          </>
         )}
       </section>
 
