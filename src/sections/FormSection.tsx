@@ -1,8 +1,9 @@
 import React, { useRef, useLayoutEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import { NotchedFrame } from '../components/NotchedFrame';
-import { Mail, MapPin, Linkedin, Palette, Shield, Send } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Palette, Shield, Send, Wine, BookOpen } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -275,6 +276,14 @@ export const FormSection: React.FC = () => {
           </p>
           
           <div className="flex items-center gap-6">
+            <Link to="/canvas-and-chill" className="text-chalet-muted hover:text-chalet-gold transition-colors text-sm flex items-center gap-2">
+              <Wine className="w-4 h-4" />
+              Canvas &amp; Chill
+            </Link>
+            <Link to="/blog" className="text-chalet-muted hover:text-chalet-ivory transition-colors text-sm flex items-center gap-2">
+              <BookOpen className="w-4 h-4" />
+              Journal
+            </Link>
             <a href="#" className="text-chalet-muted hover:text-chalet-ivory transition-colors text-sm flex items-center gap-2">
               <Shield className="w-4 h-4" />
               Privacy

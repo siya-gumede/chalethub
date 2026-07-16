@@ -1,6 +1,7 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import { NotchedFrame } from '../components/NotchedFrame';
 import { ArrowRight } from 'lucide-react';
 
@@ -194,6 +195,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
         <button onClick={() => onNavigate('contact')} className="label-mono text-chalet-muted hover:text-chalet-ivory transition-colors">
           Contact
         </button>
+        <span className="w-px h-4 bg-chalet-ivory/15" />
+        <Link to="/canvas-and-chill" className="label-mono text-chalet-gold hover:text-chalet-ivory transition-colors">
+          Canvas &amp; Chill
+        </Link>
+        <Link to="/blog" className="label-mono text-chalet-muted hover:text-chalet-ivory transition-colors">
+          Journal
+        </Link>
       </div>
 
       {/* Hero Headline */}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 interface NavigationProps {
   onNavigate: (section: string) => void;
@@ -50,6 +51,19 @@ export const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
                 {item.label}
               </button>
             ))}
+            <span className="w-px h-4 bg-chalet-ivory/15" />
+            <Link
+              to="/canvas-and-chill"
+              className="label-mono text-chalet-gold hover:text-chalet-ivory transition-colors"
+            >
+              Canvas &amp; Chill
+            </Link>
+            <Link
+              to="/blog"
+              className="label-mono text-chalet-muted hover:text-chalet-ivory transition-colors"
+            >
+              Journal
+            </Link>
           </div>
         </div>
       </div>

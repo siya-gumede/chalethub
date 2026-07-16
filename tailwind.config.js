@@ -45,6 +45,8 @@ module.exports = {
           gold: "#D4A23A",
           ivory: "#F4F1EA",
           muted: "#B8B2A6",
+          sage: "#7A7F66",
+          beige: "#CBB9A3",
         }
       },
       fontFamily: {
