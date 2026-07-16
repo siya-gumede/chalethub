@@ -128,8 +128,8 @@ export const FormSection: React.FC = () => {
                 </div>
                 <div>
                   <span className="label-mono text-chalet-muted block mb-1">Email</span>
-                  <a href="mailto:hello@chalethub.studio" className="text-chalet-ivory hover:text-chalet-gold transition-colors">
-                    hello@chalethub.studio
+                  <a href="mailto:hello@chalethub.co.za" className="text-chalet-ivory hover:text-chalet-gold transition-colors">
+                    hello@chalethub.co.za
                   </a>
                 </div>
               </div>

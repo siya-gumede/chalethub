@@ -8,8 +8,8 @@ export const PageFooter: React.FC = () => {
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-2 text-chalet-muted text-sm">
           <Mail className="w-4 h-4 text-chalet-gold" />
-          <a href="mailto:hello@chalethub.studio" className="hover:text-chalet-ivory transition-colors">
-            hello@chalethub.studio
+          <a href="mailto:hello@chalethub.co.za" className="hover:text-chalet-ivory transition-colors">
+            hello@chalethub.co.za
           </a>
         </div>
 

@@ -233,7 +233,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) =>
                 <Mail className="w-4 h-4 text-chalet-gold" />
                 <span className="label-mono text-chalet-muted">Email</span>
               </div>
-              <p className="text-chalet-ivory font-medium">info@chalethub.co.za</p>
+              <p className="text-chalet-ivory font-medium">hello@chalethub.co.za</p>
             </div>
             
             <div>
