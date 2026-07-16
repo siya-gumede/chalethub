@@ -172,10 +172,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
         <NotchedFrame />
       </div>
 
-      {/* Top Left Label */}
+      {/* Top Left Label — hidden on mobile since the fixed nav bar already shows the brand there */}
       <div 
         ref={labelRef}
-        className="absolute left-[8vw] top-[10vh] z-[4]"
+        className="absolute left-[8vw] top-[10vh] z-[4] hidden md:block"
         style={{ opacity: 0 }}
       >
         <span className="label-mono text-chalet-ivory">CHALET HUB</span>
