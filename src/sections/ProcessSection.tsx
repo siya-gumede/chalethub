@@ -194,7 +194,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onNavigate }) =>
         style={{ width: '34vw', maxWidth: '420px', opacity: 0 }}
       >
         <p className="body-text">
-          From first sketch to final build—clear timelines, honest feedback, and work that holds up in the wild.
+          From first design doc to production—clear timelines, honest tradeoffs, and systems that hold up under load.
         </p>
       </div>
     </section>

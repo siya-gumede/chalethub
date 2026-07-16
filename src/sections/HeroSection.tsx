@@ -211,9 +211,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
         style={{ width: '62vw' }}
       >
         <h1 className="headline-xl text-chalet-ivory">
-          <span className="headline-line block">CRAFTING</span>
-          <span className="headline-line block">WORLDS</span>
-          <span className="headline-line block">SHIPPING PRODUCTS</span>
+          <span className="headline-line block">ARCHITECTING</span>
+          <span className="headline-line block">CLOUD SYSTEMS</span>
+          <span className="headline-line block">THAT SCALE</span>
         </h1>
       </div>
 
@@ -224,7 +224,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
         style={{ width: '34vw', maxWidth: '400px' }}
       >
         <p className="body-text">
-          Game assets & MVP builds—designed, built, and delivered.
+          Cloud architecture, automation & observability—designed, built, and delivered.
         </p>
       </div>
 

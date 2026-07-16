@@ -177,8 +177,8 @@ export const FeaturedSection: React.FC<FeaturedSectionProps> = ({ onNavigate }) 
         }}
       >
         <h2 className="headline-lg text-chalet-ivory">
-          <span className="block">A COZY SPACE</span>
-          <span className="block">TO BUILD</span>
+          <span className="block">ONE DASHBOARD</span>
+          <span className="block">EVERY SIGNAL</span>
         </h2>
       </div>
 
@@ -195,7 +195,7 @@ export const FeaturedSection: React.FC<FeaturedSectionProps> = ({ onNavigate }) 
         }}
       >
         <p className="body-text">
-          Concept art, 3D kits, and UI systems for a winter exploration game.
+          A Grafana observability platform federating Prometheus, BigQuery, and CloudWatch into a single pane of glass.
         </p>
       </div>
 

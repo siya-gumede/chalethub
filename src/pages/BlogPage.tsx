@@ -54,8 +54,8 @@ export const BlogPage: React.FC = () => {
           NOTES FROM THE STUDIO.
         </h1>
         <p className="body-text max-w-xl mt-6 text-base md:text-lg">
-          Thoughts on game production, MVP builds, and where AI actually earns its place in the
-          stack — written by the people shipping the work.
+          Thoughts on cloud architecture, automation, and observability — with the occasional
+          detour into gaming and AI.
         </p>
 
         {/* Filter tabs */}

@@ -187,7 +187,7 @@ export const ImpactSection: React.FC<ImpactSectionProps> = ({ onNavigate }) => {
         style={{ width: '34vw', maxWidth: '420px', opacity: 0 }}
       >
         <p className="body-text">
-          Tight deadlines, big worlds, small teams—we've done it across industries.
+          Tight deadlines, complex systems, lean teams—we&rsquo;ve done it across industries.
         </p>
       </div>
     </section>

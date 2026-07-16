@@ -190,9 +190,9 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onNavi
         }}
       >
         <h2 className="headline-lg text-chalet-ivory">
-          <span className="block">GAME ASSETS</span>
-          <span className="block">ENVIRONMENTS</span>
-          <span className="block">MVP PRODUCTS</span>
+          <span className="block">CLOUD</span>
+          <span className="block">AUTOMATION</span>
+          <span className="block">OBSERVABILITY</span>
         </h2>
       </div>
 
@@ -209,7 +209,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onNavi
         }}
       >
         <p className="body-text">
-          We design characters, props, and worlds—then ship them as real products.
+          We architect resilient cloud systems, automate the path to production, and give you full visibility into how it all runs.
         </p>
       </div>
 

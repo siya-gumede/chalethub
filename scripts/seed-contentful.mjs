@@ -21,9 +21,7 @@
  * slug, then publish everything. Safe to re-run.
  */
 
-import contentfulManagement from 'contentful-management';
-
-const { createClient } = contentfulManagement;
+import { createClient } from 'contentful-management';
 
 const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
 const MANAGEMENT_TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN;
@@ -253,7 +251,10 @@ async function upsertPost(environment, post) {
 // ---------------------------------------------------------------------------
 
 async function main() {
-  const client = createClient({ accessToken: MANAGEMENT_TOKEN });
+  // contentful-management v12 defaults to the newer "plain" client API.
+  // This script is written against the classic (nested) client — still
+  // supported, just requires opting in explicitly.
+  const client = createClient({ accessToken: MANAGEMENT_TOKEN }, { type: 'legacy' });
   const space = await client.getSpace(SPACE_ID);
   const environment = await space.getEnvironment(ENVIRONMENT_ID);
 
