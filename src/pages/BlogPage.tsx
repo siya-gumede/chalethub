@@ -1,17 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Gamepad2, Cpu, Loader2, AlertCircle } from 'lucide-react';
+import { ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { PageFooter } from '../components/PageFooter';
 import { fetchAllPosts, isContentfulConfigured, type BlogPost } from '../lib/contentful';
+import { BLOG_CATEGORIES, categoryIcon, type BlogCategory } from '../lib/blogCategories';
 
-type Filter = 'All' | 'Gaming' | 'AI';
+type Filter = 'All' | BlogCategory;
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' });
-
-const categoryIcon = (category: string) =>
-  category === 'Gaming' ? <Gamepad2 className="w-4 h-4" /> : <Cpu className="w-4 h-4" />;
 
 export const BlogPage: React.FC = () => {
   const [filter, setFilter] = useState<Filter>('All');
@@ -60,7 +58,7 @@ export const BlogPage: React.FC = () => {
 
         {/* Filter tabs */}
         <div className="flex flex-wrap gap-3 mt-10">
-          {(['All', 'Gaming', 'AI'] as Filter[]).map((f) => (
+          {(['All', ...BLOG_CATEGORIES] as Filter[]).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}

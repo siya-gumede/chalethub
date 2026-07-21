@@ -165,11 +165,17 @@ async function ensureContentType(environment) {
   try {
     contentType = await environment.getContentType(CONTENT_TYPE_ID);
     console.log(`Content type "${CONTENT_TYPE_ID}" already exists — reusing it.`);
+    const categoryField = contentType.fields.find((field) => field.id === 'category');
+    if (categoryField) {
+      categoryField.validations = [
+        { in: ['Gaming', 'AI', 'System Design', 'Cloud Architecture', 'Observability'] },
+      ];
+    }
   } catch {
     console.log(`Creating content type "${CONTENT_TYPE_ID}"...`);
     contentType = await environment.createContentTypeWithId(CONTENT_TYPE_ID, {
       name: 'Blog Post',
-      description: 'A Chalet Hub Journal post (Gaming or AI).',
+      description: 'A Chalet Hub Journal post.',
       displayField: 'title',
       fields: [
         { id: 'title', name: 'Title', type: 'Symbol', required: true },
@@ -185,7 +191,9 @@ async function ensureContentType(environment) {
           name: 'Category',
           type: 'Symbol',
           required: true,
-          validations: [{ in: ['Gaming', 'AI'] }],
+          validations: [
+            { in: ['Gaming', 'AI', 'System Design', 'Cloud Architecture', 'Observability'] },
+          ],
         },
         { id: 'publishDate', name: 'Publish Date', type: 'Date', required: true },
         { id: 'readTime', name: 'Read Time', type: 'Symbol', required: true },

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Gamepad2, Cpu, Loader2, AlertCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { PageHeader } from '../components/PageHeader';
 import { PageFooter } from '../components/PageFooter';
 import { RichTextRenderer } from '../components/RichTextRenderer';
@@ -10,6 +10,7 @@ import {
   isContentfulConfigured,
   type BlogPost,
 } from '../lib/contentful';
+import { categoryIcon } from '../lib/blogCategories';
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -122,11 +123,7 @@ export const BlogPostPage: React.FC = () => {
 
         <div className="max-w-3xl">
           <div className="flex items-center gap-2 label-mono text-chalet-gold mb-6">
-            {post.category === 'Gaming' ? (
-              <Gamepad2 className="w-4 h-4" />
-            ) : (
-              <Cpu className="w-4 h-4" />
-            )}
+            {categoryIcon(post.category)}
             {post.category}
           </div>
 

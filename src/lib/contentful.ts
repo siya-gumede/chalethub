@@ -1,5 +1,6 @@
 import { createClient, type EntryFieldTypes } from 'contentful';
 import type { Document } from '@contentful/rich-text-types';
+import type { BlogCategory } from './blogCategories';
 
 const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID as string | undefined;
 const accessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN as string | undefined;
@@ -14,7 +15,7 @@ export const contentfulClient = isContentfulConfigured
 export interface BlogPost {
   slug: string;
   title: string;
-  category: 'Gaming' | 'AI';
+  category: BlogCategory;
   date: string;
   readTime: string;
   excerpt: string;
@@ -28,7 +29,7 @@ interface BlogPostSkeleton {
   fields: {
     title: EntryFieldTypes.Symbol;
     slug: EntryFieldTypes.Symbol;
-    category: EntryFieldTypes.Symbol<'Gaming' | 'AI'>;
+    category: EntryFieldTypes.Symbol<BlogCategory>;
     publishDate: EntryFieldTypes.Date;
     readTime: EntryFieldTypes.Symbol;
     excerpt: EntryFieldTypes.Text;
@@ -77,7 +78,7 @@ export async function fetchPostBySlug(slug: string): Promise<BlogPost | null> {
 
 export async function fetchRelatedPosts(
   slug: string,
-  category: 'Gaming' | 'AI',
+  category: BlogCategory,
   count = 2
 ): Promise<BlogPost[]> {
   if (!contentfulClient) return [];

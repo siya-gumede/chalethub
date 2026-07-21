@@ -32,7 +32,7 @@ This creates a `Blog Post` content type (`blogPost`) with these fields:
 |---------------|-------------------|-------------------------------------|
 | `title`       | Symbol            | required                            |
 | `slug`        | Symbol            | required, unique                    |
-| `category`    | Symbol            | required, `Gaming` or `AI`          |
+| `category`    | Symbol            | required, one of `Gaming`, `AI`, `System Design`, `Cloud Architecture`, `Observability` |
 | `publishDate` | Date              | required                            |
 | `readTime`    | Symbol            | required, e.g. `"5 min read"`       |
 | `excerpt`     | Text              | required, shown on the card         |
