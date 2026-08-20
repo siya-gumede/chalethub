@@ -177,8 +177,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) =>
         }}
       >
         <h2 className="headline-lg text-chalet-ivory">
-          <span className="block">LET'S BUILD</span>
-          <span className="block">THE NEXT THING</span>
+          <span className="block">LET'S</span>
+          <span className="block">CONNECT</span>
         </h2>
       </div>
 
@@ -195,7 +195,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) =>
         }}
       >
         <p className="body-text">
-          Tell us what you're making. We'll reply within 48 hours.
+          Questions, ideas, or just want to say hello? We'll reply within 48 hours.
         </p>
       </div>
 
@@ -210,7 +210,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) =>
           opacity: 0
         }}
       >
-        Start a project
+        Send a message
         <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
       </button>
 

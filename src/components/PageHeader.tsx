@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
   { label: 'Home', to: '/' },
-  { label: 'Canvas & Chill', to: '/canvas-and-chill' },
   { label: 'Journal', to: '/blog' },
+  { label: 'Canvas & Chill', to: '/canvas-and-chill' },
 ];
 
 export const PageHeader: React.FC = () => {

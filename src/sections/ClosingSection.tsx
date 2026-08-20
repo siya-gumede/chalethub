@@ -176,7 +176,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onNavigate }) =>
         className="absolute left-[8vw] bottom-[12vh] z-[4] btn-primary group"
         style={{ opacity: 0 }}
       >
-        Request a quote
+        Get in touch
         <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
       </button>
 
@@ -187,7 +187,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onNavigate }) =>
         style={{ width: '34vw', maxWidth: '420px', opacity: 0 }}
       >
         <p className="body-text">
-          Bring the vision. We'll bring the craft.
+          Bring your questions. We'll bring the context.
         </p>
       </div>
     </section>

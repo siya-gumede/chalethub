@@ -17,7 +17,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
   const frameRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const microcopyRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLButtonElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -187,20 +187,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           Work
         </button>
         <button onClick={() => onNavigate('capabilities')} className="label-mono text-chalet-muted hover:text-chalet-ivory transition-colors">
-          Services
+          Pillars
         </button>
         <button onClick={() => onNavigate('process')} className="label-mono text-chalet-muted hover:text-chalet-ivory transition-colors">
-          Studio
+          Journey
         </button>
         <button onClick={() => onNavigate('contact')} className="label-mono text-chalet-muted hover:text-chalet-ivory transition-colors">
           Contact
         </button>
         <span className="w-px h-4 bg-chalet-ivory/15" />
-        <Link to="/canvas-and-chill" className="label-mono text-chalet-gold hover:text-chalet-ivory transition-colors">
-          Canvas &amp; Chill
-        </Link>
-        <Link to="/blog" className="label-mono text-chalet-muted hover:text-chalet-ivory transition-colors">
+        <Link to="/blog" className="label-mono text-chalet-gold hover:text-chalet-ivory transition-colors">
           Journal
+        </Link>
+        <Link to="/canvas-and-chill" className="label-mono text-chalet-muted hover:text-chalet-ivory transition-colors">
+          Canvas &amp; Chill
         </Link>
       </div>
 
@@ -211,9 +211,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
         style={{ width: '62vw' }}
       >
         <h1 className="headline-xl text-chalet-ivory">
-          <span className="headline-line block">ARCHITECTING</span>
-          <span className="headline-line block">CLOUD SYSTEMS</span>
-          <span className="headline-line block">THAT SCALE</span>
+          <span className="headline-line block">BUILD SOFTWARE.</span>
+          <span className="headline-line block">DESIGN SYSTEMS.</span>
+          <span className="headline-line block">THINK LIKE AN ARCHITECT.</span>
         </h1>
       </div>
 
@@ -224,19 +224,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
         style={{ width: '34vw', maxWidth: '400px' }}
       >
         <p className="body-text">
-          Cloud architecture, automation & observability—designed, built, and delivered.
+          A technology community for developers growing from writing code to designing and operating real systems.
         </p>
       </div>
 
       {/* Bottom Right CTA */}
-      <button 
+      <Link
         ref={ctaRef}
-        onClick={() => onNavigate('featured')}
+        to="/blog"
         className="absolute right-[8vw] bottom-[12vh] z-[4] btn-primary group"
       >
-        View selected work
+        Read the Journal
         <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-      </button>
+      </Link>
     </section>
   );
 };

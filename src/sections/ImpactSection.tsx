@@ -154,7 +154,7 @@ export const ImpactSection: React.FC<ImpactSectionProps> = ({ onNavigate }) => {
         className="absolute left-[8vw] top-[10vh] z-[4]"
         style={{ opacity: 0 }}
       >
-        <span className="label-mono text-chalet-gold">STUDIO</span>
+        <span className="label-mono text-chalet-gold">THE DIFFERENCE</span>
       </div>
 
       {/* Headline */}
@@ -164,8 +164,8 @@ export const ImpactSection: React.FC<ImpactSectionProps> = ({ onNavigate }) => {
         style={{ width: '70vw', opacity: 0 }}
       >
         <h2 className="headline-xl text-chalet-ivory">
-          <span className="block">WE DELIVER</span>
-          <span className="block">THE UNEXPECTED</span>
+          <span className="block">CONNECTED</span>
+          <span className="block">NOT ISOLATED</span>
         </h2>
       </div>
 
@@ -176,7 +176,7 @@ export const ImpactSection: React.FC<ImpactSectionProps> = ({ onNavigate }) => {
         className="absolute left-[8vw] bottom-[12vh] z-[4] btn-outline group"
         style={{ opacity: 0 }}
       >
-        See milestones
+        Get in touch
         <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
       </button>
 
@@ -187,7 +187,7 @@ export const ImpactSection: React.FC<ImpactSectionProps> = ({ onNavigate }) => {
         style={{ width: '34vw', maxWidth: '420px', opacity: 0 }}
       >
         <p className="body-text">
-          Tight deadlines, complex systems, lean teams—we&rsquo;ve done it across industries.
+          Real architecture decisions, real trade-offs, real systems — not just isolated tutorials.
         </p>
       </div>
     </section>

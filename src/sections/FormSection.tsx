@@ -16,7 +16,7 @@ export const FormSection: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    budget: '',
+    topic: '',
     message: ''
   });
 
@@ -88,7 +88,7 @@ export const FormSection: React.FC = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-      setFormData({ name: '', email: '', budget: '', message: '' });
+      setFormData({ name: '', email: '', topic: '', message: '' });
     }, 1500);
   };
 
@@ -114,11 +114,11 @@ export const FormSection: React.FC = () => {
             style={{ opacity: 0 }}
           >
             <h2 className="headline-lg text-chalet-ivory mb-6">
-              START A PROJECT
+              GET IN TOUCH
             </h2>
             
             <p className="body-text mb-10 max-w-md">
-              Share a brief, a timeline, and what success looks like. We'll respond with next steps.
+              Questions about a post, ideas for the community, or a partnership in mind? We'll respond with next steps.
             </p>
             
             <div className="space-y-6">
@@ -209,19 +209,19 @@ export const FormSection: React.FC = () => {
                   
                   <div>
                     <label className="label-mono text-chalet-muted block mb-2">
-                      Budget Range
+                      What brings you here?
                     </label>
                     <select
-                      name="budget"
-                      value={formData.budget}
+                      name="topic"
+                      value={formData.topic}
                       onChange={handleChange}
                       className="form-input appearance-none cursor-pointer"
                     >
-                      <option value="">Select a range</option>
-                      <option value="10k-25k">$10,000 - $25,000</option>
-                      <option value="25k-50k">$25,000 - $50,000</option>
-                      <option value="50k-100k">$50,000 - $100,000</option>
-                      <option value="100k+">$100,000+</option>
+                      <option value="">Select a topic</option>
+                      <option value="content">A question about a post</option>
+                      <option value="community">Community or collaboration</option>
+                      <option value="partnership">Partnership or sponsorship</option>
+                      <option value="other">Something else</option>
                     </select>
                   </div>
                   
@@ -236,7 +236,7 @@ export const FormSection: React.FC = () => {
                       required
                       rows={5}
                       className="form-input resize-none"
-                      placeholder="Tell us about your project..."
+                      placeholder="Tell us what's on your mind..."
                     />
                   </div>
                   
@@ -276,13 +276,13 @@ export const FormSection: React.FC = () => {
           </p>
           
           <div className="flex items-center gap-6">
-            <Link to="/canvas-and-chill" className="text-chalet-muted hover:text-chalet-gold transition-colors text-sm flex items-center gap-2">
-              <Wine className="w-4 h-4" />
-              Canvas &amp; Chill
-            </Link>
-            <Link to="/blog" className="text-chalet-muted hover:text-chalet-ivory transition-colors text-sm flex items-center gap-2">
+            <Link to="/blog" className="text-chalet-muted hover:text-chalet-gold transition-colors text-sm flex items-center gap-2">
               <BookOpen className="w-4 h-4" />
               Journal
+            </Link>
+            <Link to="/canvas-and-chill" className="text-chalet-muted hover:text-chalet-ivory transition-colors text-sm flex items-center gap-2">
+              <Wine className="w-4 h-4" />
+              Canvas &amp; Chill
             </Link>
             <a href="#" className="text-chalet-muted hover:text-chalet-ivory transition-colors text-sm flex items-center gap-2">
               <Shield className="w-4 h-4" />

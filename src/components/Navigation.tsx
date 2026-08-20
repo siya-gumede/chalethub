@@ -25,14 +25,14 @@ export const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
 
   const scrollItems = [
     { label: 'Work', section: 'featured' },
-    { label: 'Services', section: 'capabilities' },
-    { label: 'Studio', section: 'process' },
+    { label: 'Pillars', section: 'capabilities' },
+    { label: 'Journey', section: 'process' },
     { label: 'Contact', section: 'contact' },
   ];
 
   const routeItems = [
-    { label: 'Canvas & Chill', to: '/canvas-and-chill', accent: true },
-    { label: 'Journal', to: '/blog', accent: false },
+    { label: 'Journal', to: '/blog', accent: true },
+    { label: 'Canvas & Chill', to: '/canvas-and-chill', accent: false },
   ];
 
   const handleScrollClick = (section: string) => {

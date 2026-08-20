@@ -1,16 +1,13 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import { NotchedFrame } from '../components/NotchedFrame';
 import { ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface FeaturedSectionProps {
-  onNavigate: (section: string) => void;
-}
-
-export const FeaturedSection: React.FC<FeaturedSectionProps> = ({ onNavigate }) => {
+export const FeaturedSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
@@ -18,7 +15,7 @@ export const FeaturedSection: React.FC<FeaturedSectionProps> = ({ onNavigate }) 
   const labelRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLButtonElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
   const floatingCardRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -161,7 +158,7 @@ export const FeaturedSection: React.FC<FeaturedSectionProps> = ({ onNavigate }) 
         className="absolute z-[4]"
         style={{ left: '8vw', top: '14vh', opacity: 0 }}
       >
-        <span className="label-mono text-chalet-gold">PROJECT</span>
+        <span className="label-mono text-chalet-gold">IN PRACTICE</span>
       </div>
 
       {/* Headline */}
@@ -200,9 +197,9 @@ export const FeaturedSection: React.FC<FeaturedSectionProps> = ({ onNavigate }) 
       </div>
 
       {/* CTA */}
-      <button 
+      <Link 
         ref={ctaRef}
-        onClick={() => onNavigate('impact')}
+        to="/blog/metrics-logs-traces-one-question-three-ways"
         className="absolute z-[4] link-gold flex items-center gap-2 group"
         style={{ 
           left: '8vw', 
@@ -210,9 +207,9 @@ export const FeaturedSection: React.FC<FeaturedSectionProps> = ({ onNavigate }) 
           opacity: 0
         }}
       >
-        Read the case study
+        Read how it works
         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-      </button>
+      </Link>
 
       {/* Floating Image Card */}
       <div 

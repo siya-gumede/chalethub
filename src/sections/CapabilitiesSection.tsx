@@ -174,7 +174,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onNavi
         className="absolute z-[4]"
         style={{ left: '58vw', top: '14vh', opacity: 0 }}
       >
-        <span className="label-mono text-chalet-gold">SERVICES</span>
+        <span className="label-mono text-chalet-gold">WHAT WE COVER</span>
       </div>
 
       {/* Headline */}
@@ -190,8 +190,8 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onNavi
         }}
       >
         <h2 className="headline-lg text-chalet-ivory">
-          <span className="block">CLOUD</span>
-          <span className="block">AUTOMATION</span>
+          <span className="block">ARCHITECTURE</span>
+          <span className="block">CLOUD & DEVOPS</span>
           <span className="block">OBSERVABILITY</span>
         </h2>
       </div>
@@ -209,7 +209,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onNavi
         }}
       >
         <p className="body-text">
-          We architect resilient cloud systems, automate the path to production, and give you full visibility into how it all runs.
+          Practical knowledge across software architecture, cloud engineering, DevOps, observability, and AI — connected, not isolated tutorials.
         </p>
       </div>
 
@@ -224,7 +224,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onNavi
           opacity: 0
         }}
       >
-        See our process
+        See the learning journey
         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
       </button>
     </section>

@@ -32,7 +32,7 @@ This creates a `Blog Post` content type (`blogPost`) with these fields:
 |---------------|-------------------|-------------------------------------|
 | `title`       | Symbol            | required                            |
 | `slug`        | Symbol            | required, unique                    |
-| `category`    | Symbol            | required, one of `Gaming`, `AI`, `System Design`, `Cloud Architecture`, `Observability` |
+| `category`    | Symbol            | required, one of the four content pillars: `Software Architecture`, `Cloud Architecture`, `DevOps & Observability`, `AI & Emerging Technology` |
 | `publishDate` | Date              | required                            |
 | `readTime`    | Symbol            | required, e.g. `"5 min read"`       |
 | `excerpt`     | Text              | required, shown on the card         |
@@ -40,8 +40,10 @@ This creates a `Blog Post` content type (`blogPost`) with these fields:
 | `coverImage`  | Asset link        | optional                            |
 | `body`        | Rich text         | required, the full post             |
 
-...then publishes the 6 starter posts (3 Gaming, 3 AI) into it. Safe to
-re-run — it updates existing entries by slug rather than duplicating them.
+...then publishes 6 posts across the 4 pillars, and retires the 3 older
+posts that were published under the earlier "Gaming" category (unpublishes
+and deletes them if still present). Safe to re-run — it updates existing
+entries by slug rather than duplicating them.
 
 ## 3. Point the site at Contentful
 

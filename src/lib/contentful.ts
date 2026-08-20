@@ -49,7 +49,7 @@ function mapEntry(entry: any): BlogPost {
     date: f.publishDate,
     readTime: f.readTime,
     excerpt: f.excerpt,
-    author: f.author || 'Chalet Hub Studio',
+    author: f.author || 'Chalet Hub',
     coverImageUrl: f.coverImage?.fields?.file?.url
       ? `https:${f.coverImage.fields.file.url}`
       : undefined,

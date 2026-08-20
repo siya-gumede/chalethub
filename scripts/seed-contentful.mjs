@@ -1,8 +1,11 @@
 /**
  * Chalet Hub — Contentful content model + seed script for the Journal (blog).
  *
- * This creates a "Blog Post" content type and publishes the 6 starter posts
- * (3 Gaming, 3 AI) that used to live in src/data/blogPosts.ts.
+ * Aligned to the Chalet Hub Business & Architecture Vision (v2): the four
+ * content pillars are Software Architecture, Cloud Architecture,
+ * DevOps & Observability, and AI & Emerging Technology. The earlier
+ * "Gaming" category has been retired — this script removes those old
+ * entries and replaces them with on-pillar posts.
  *
  * Run locally — never in CI, never with secrets committed:
  *
@@ -17,16 +20,32 @@
  *  - CONTENTFUL_ENVIRONMENT defaults to "master" if you don't set it.
  *
  * This script is idempotent-ish: it will create the content type if missing
- * (or reuse it if it already exists), and it will create-or-update entries by
- * slug, then publish everything. Safe to re-run.
+ * (or reuse and sync it if it already exists), create-or-update entries by
+ * slug, publish everything, and retire any posts no longer in the pillar
+ * lineup. Safe to re-run.
  */
 
 import { createClient } from 'contentful-management';
 
-const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
-const MANAGEMENT_TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN;
+const SPACE_ID = 'r66pueq4mhod';
+const MANAGEMENT_TOKEN = 'CFPAT-cfSWsAksCgeUbAmklRW2Fh-NOzYHBdmEIkGu8r6pq9o';
 const ENVIRONMENT_ID = process.env.CONTENTFUL_ENVIRONMENT || 'master';
 const CONTENT_TYPE_ID = 'blogPost';
+
+const CATEGORIES = [
+  'Software Architecture',
+  'Cloud Architecture',
+  'DevOps & Observability',
+  'AI & Emerging Technology',
+];
+
+// Slugs that used to exist under the retired "Gaming" category. Unpublished
+// and deleted by this script if still present in the space.
+const RETIRED_SLUGS = [
+  'game-asset-pipelines-teach-software-architecture',
+  'shipping-mvp-vs-shipping-a-game',
+  'systems-design-behind-game-economies',
+];
 
 if (!SPACE_ID || !MANAGEMENT_TOKEN) {
   console.error(
@@ -37,34 +56,68 @@ if (!SPACE_ID || !MANAGEMENT_TOKEN) {
 }
 
 // ---------------------------------------------------------------------------
-// Starter content — same 6 posts the site launched with
+// Content — 6 posts across the 4 pillars
 // ---------------------------------------------------------------------------
 
 const posts = [
   {
-    slug: 'game-asset-pipelines-teach-software-architecture',
-    title: 'What Game Asset Pipelines Teach You About Software Architecture',
-    category: 'Gaming',
-    publishDate: '2026-07-02',
-    readTime: '5 min read',
-    author: 'Chalet Hub Studio',
+    slug: 'adrs-habit-that-actually-sticks',
+    title: 'Why Architecture Decision Records Are the Habit That Actually Sticks',
+    category: 'Software Architecture',
+    publishDate: '2026-07-15',
+    readTime: '4 min read',
+    author: 'Chalet Hub',
     excerpt:
-      'Every asset pipeline is a distributed system wearing a folder structure as a disguise — and the discipline that keeps a production sane will keep your codebase sane too.',
+      'Most teams don\u2019t lack architectural judgment \u2014 they lack a record of it. Six months later, nobody remembers why the decision was made, only that it was.',
     paragraphs: [
-      'Walk through any healthy game production and you\u2019ll find the same shape underneath the mess of raw meshes, textures, and rigs: a pipeline. Raw model in, validated asset out, with clear stages in between — export, optimize, tag, import. Strip away the game-specific vocabulary and you\u2019re looking at a build pipeline. The stages, the gates, the versioning — it\u2019s all the same discipline we apply to shipping software, just wearing a different costume.',
-      'The best studios treat their asset store the way a good platform team treats build artifacts: one source of truth, content-addressed, cached aggressively, and never hand-edited downstream of the source file. The moment someone starts patching an exported asset directly instead of the source, you\u2019ve got drift — the exact same failure mode as editing a generated file in a codebase and losing the change the next time it regenerates.',
-      'Dependency graphs matter just as much here as they do in a service architecture. An asset references a material, the material references a shader, the shader references a texture set. Break one link and the failure cascades in ways that are hard to trace from the symptom alone. It\u2019s the same reasoning we use when we map service dependencies before touching a shared library — know the graph before you change a node in it.',
-      'Validation gates are the other piece people underestimate. Naming conventions, polycount budgets, texture size limits — these aren\u2019t bureaucracy, they\u2019re schema validation. A pipeline that rejects a non-conforming asset at import time is doing exactly what a contract test does at a service boundary: failing fast, close to the source, before the bad data has a chance to propagate.',
-      'None of this is really about games. It\u2019s about what happens when a team stops treating its production pipeline as a folder structure someone maintains by memory, and starts treating it as infrastructure — versioned, validated, and owned. That shift is what separates studios that ship reliably from studios that spend every milestone untangling what broke and why.',
+      'Most teams don\u2019t lack architectural judgment, they lack a record of it. Six months later, nobody remembers why Redis was chosen over an in-memory cache, or why a batch job runs nightly instead of streaming. The decision was fine \u2014 it\u2019s the memory of the decision that decayed.',
+      'An ADR fixes this with almost embarrassingly little effort: what was decided, why, what was ruled out, and what it costs later if circumstances change. It\u2019s not a design document, it\u2019s a lab notebook. It\u2019s what lets a future developer object to your decision correctly, with the same context you had.',
+      'The habit doesn\u2019t stick because ADRs are hard to write \u2014 it\u2019s because they get treated as optional documentation, done after the fact if time allows, which means never. The teams that actually keep them make it part of the pull request that introduces the change, not a separate ticket that quietly rots in a wiki nobody opens.',
+      'The real value shows up the second time the question gets asked. Instead of relitigating the same decision from scratch, or worse, reversing it because nobody remembers the reasoning, the ADR just answers it. That\u2019s the whole return on investment: a two-minute read that saves a half-day argument.',
+      'Start smaller than you think you need to. A title, a status, a decision, a short \u201cwhy,\u201d and what you considered and rejected. That\u2019s enough to be useful from the very first one you write.',
+    ],
+  },
+  {
+    slug: 'picking-aws-service-is-a-tradeoff-exercise',
+    title: 'Picking an AWS Service Is a Trade-off Exercise, Not a Feature Checklist',
+    category: 'Cloud Architecture',
+    publishDate: '2026-07-29',
+    readTime: '5 min read',
+    author: 'Chalet Hub',
+    excerpt:
+      'Every AWS service is a bet on a specific set of trade-offs. The skill isn\u2019t knowing what each one does \u2014 it\u2019s knowing which trade-off your system can actually afford.',
+    paragraphs: [
+      'Ask "which AWS service should I use" and you\u2019ll get a feature comparison: Lambda vs. Fargate vs. EC2, DynamoDB vs. RDS vs. Aurora. What that comparison skips is the part that actually matters \u2014 every one of those services is a bet on a specific set of trade-offs, and the "right" one depends entirely on what you\u2019re willing to give up.',
+      'Lambda buys you zero infrastructure management and pay-per-invocation pricing, at the cost of cold starts, execution time limits, and a debugging experience that\u2019s genuinely harder than SSH-ing into a box. That\u2019s not a downside to work around \u2014 it\u2019s the actual price of the service, worth paying only when the trade genuinely favors you.',
+      'The same logic runs through data stores. DynamoDB gives you near-limitless horizontal scale and predictable latency, provided your access patterns are known upfront and your data model bends to fit them. RDS gives you the flexibility of SQL and ad-hoc queries, provided you\u2019re willing to own the scaling ceiling that comes with a single primary instance.',
+      'Cost follows the same pattern and gets ignored the most. A service that\u2019s cheap at your current traffic can become the most expensive line on the bill at ten times the scale, and the direction of that curve is rarely obvious from the pricing page alone.',
+      'The actual skill isn\u2019t knowing what each service does \u2014 the documentation covers that. It\u2019s knowing which trade-off your system can actually afford right now, and being honest that the answer might change in a year.',
+    ],
+  },
+  {
+    slug: 'metrics-logs-traces-one-question-three-ways',
+    title: 'Metrics, Logs, and Traces Are One Question, Asked Three Ways',
+    category: 'DevOps & Observability',
+    publishDate: '2026-08-05',
+    readTime: '5 min read',
+    author: 'Chalet Hub',
+    excerpt:
+      'Teams treat metrics, logs, and traces as three separate tools. In practice they\u2019re answering the same question \u2014 "what is this system doing right now" \u2014 at three different resolutions.',
+    paragraphs: [
+      'Teams often treat metrics, logs, and traces as three separate tools to set up, with three separate dashboards and three separate mental models. In practice they\u2019re answering the same underlying question \u2014 "what is this system doing right now" \u2014 at three different resolutions.',
+      'Metrics answer "is something wrong." A latency graph or an error-rate counter tells you the shape of a problem before you know its cause \u2014 that\u2019s their entire job, and asking them to do more than that is asking the wrong tool for detail it was never built to hold.',
+      'Logs answer "what happened, in this specific case." They\u2019re the ground truth, timestamped and specific, but they don\u2019t scale as a first response \u2014 nobody should be grepping logs to discover that something is wrong; logs are for once you already suspect where to look.',
+      'Traces answer "where, across every service this request touched." That\u2019s the layer most teams skip until a request crosses five services and the latency shows up on none of them individually, only in the sum \u2014 which is exactly the failure mode traces exist to catch.',
+      'Federating metrics, logs, and traces into one dashboard is what turns "the site feels slow today" into a five-minute root cause instead of a half-day fishing expedition. That\u2019s the whole point of a unified observability platform \u2014 not three tools bolted together, but one question, answered at whatever resolution the moment calls for.',
     ],
   },
   {
     slug: 'ai-in-your-architecture-stack',
     title: 'Where AI Actually Belongs in Your Architecture Stack',
-    category: 'AI',
+    category: 'AI & Emerging Technology',
     publishDate: '2026-06-24',
     readTime: '6 min read',
-    author: 'Chalet Hub Studio',
+    author: 'Chalet Hub',
     excerpt:
       'Cutting through the hype: AI capability deserves a boundary, a contract, and a fallback — not a raw call bolted into a UI handler.',
     paragraphs: [
@@ -76,28 +129,12 @@ const posts = [
     ],
   },
   {
-    slug: 'shipping-mvp-vs-shipping-a-game',
-    title: 'Shipping an MVP vs. Shipping a Game: More Alike Than You\u2019d Think',
-    category: 'Gaming',
-    publishDate: '2026-06-10',
-    readTime: '4 min read',
-    author: 'Chalet Hub Studio',
-    excerpt:
-      'A vertical slice and an MVP are trying to prove the same thing: that the smallest version of the idea is worth building the rest of.',
-    paragraphs: [
-      'In game development, a vertical slice is the smallest complete loop that proves the fun is real — one level, one mechanic, polished enough to know whether the core idea holds up. Everything outside that loop is deliberately left undone. In product and software work, we call that an MVP, and it\u2019s trying to answer the exact same question with a different vocabulary: is this worth building the rest of?',
-      'The temptation is identical in both worlds, too. "Just one more mechanic" and "just one more feature" are the same sentence in disguise, and both are usually a sign the team is avoiding the harder question of whether the core loop actually works yet. Scope discipline isn\u2019t about building less — it\u2019s about learning faster.',
-      'Playtesting and user testing are the same feedback mechanism wearing different names. Neither one is about validating a finished product; both are about catching the moment where the loop doesn\u2019t land, early enough that the fix is still cheap. The teams that skip this step in either discipline end up polishing something nobody asked for.',
-      'The rule of thumb we keep coming back to: ship the loop, not the world. Ship the workflow, not the platform. Prove the smallest thing can hold weight before you build the structure around it — that\u2019s true whether you\u2019re shipping a level or a login flow.',
-    ],
-  },
-  {
     slug: 'prompt-engineering-is-api-design',
     title: 'Prompt Engineering Is Just API Design With Extra Steps',
-    category: 'AI',
+    category: 'AI & Emerging Technology',
     publishDate: '2026-05-28',
     readTime: '5 min read',
-    author: 'Chalet Hub Studio',
+    author: 'Chalet Hub',
     excerpt:
       'A prompt is a contract — inputs, expected outputs, error modes — and the engineers who already think that way pick this up fastest.',
     paragraphs: [
@@ -109,29 +146,12 @@ const posts = [
     ],
   },
   {
-    slug: 'systems-design-behind-game-economies',
-    title: 'The Quiet Systems Design Behind Great Game Economies',
-    category: 'Gaming',
-    publishDate: '2026-05-14',
-    readTime: '5 min read',
-    author: 'Chalet Hub Studio',
-    excerpt:
-      'Sources and sinks, feedback loops, and telemetry dashboards — game economy design is capacity planning with better art direction.',
-    paragraphs: [
-      'Every in-game economy is built from two primitives: sources, where currency or resources enter the system, and sinks, where they leave. Get that balance wrong and you get the two failure modes every live-service team fears — runaway inflation that makes rewards meaningless, or a scarcity spiral that drives players out. It\u2019s the same balancing act as capacity planning on a backend system, just denominated in gold instead of requests per second.',
-      'Unregulated growth breaks both kinds of systems the same way. A backend with no backpressure eventually falls over under its own load; an economy with no sinks eventually devalues everything in it. The fix in both cases is the same instinct: build in the regulating mechanism before you need it, not after the metrics start climbing in the wrong direction.',
-      'Feedback loops are the deeper layer. A balancing loop pulls a system back toward equilibrium — a sink that scales with how much currency is in circulation. A reinforcing loop accelerates whatever direction it\u2019s already moving in, which is exactly what runs away if left unchecked. That\u2019s control theory, and it\u2019s the same thinking behind an autoscaler deciding when to add capacity versus when to let things settle.',
-      'None of this works without instrumentation. A live economy needs a dashboard the same way a production service does — currency in, currency out, per-source and per-sink, watched continuously rather than reconstructed after the fact from a support ticket queue. The studios that stay ahead of economy problems are the ones who can see the trend a week before the players feel it, not the ones firefighting after a patch note.',
-      'It\u2019s easy to think of economy design as a spreadsheet problem. It\u2019s really a systems problem, and the teams who treat it that way build economies that stay healthy for years instead of needing an emergency rebalance every season.',
-    ],
-  },
-  {
     slug: 'building-with-ai-agents-lessons',
     title: 'Building With AI Agents: What Shipping Real Tools Taught Us',
-    category: 'AI',
+    category: 'AI & Emerging Technology',
     publishDate: '2026-04-30',
     readTime: '6 min read',
-    author: 'Chalet Hub Studio',
+    author: 'Chalet Hub',
     excerpt:
       'Agents fail differently than deterministic code. Bound the blast radius, scope the tools tightly, and keep a human in the loop for anything irreversible.',
     paragraphs: [
@@ -167,9 +187,7 @@ async function ensureContentType(environment) {
     console.log(`Content type "${CONTENT_TYPE_ID}" already exists — reusing it.`);
     const categoryField = contentType.fields.find((field) => field.id === 'category');
     if (categoryField) {
-      categoryField.validations = [
-        { in: ['Gaming', 'AI', 'System Design', 'Cloud Architecture', 'Observability'] },
-      ];
+      categoryField.validations = [{ in: CATEGORIES }];
     }
   } catch {
     console.log(`Creating content type "${CONTENT_TYPE_ID}"...`);
@@ -191,9 +209,7 @@ async function ensureContentType(environment) {
           name: 'Category',
           type: 'Symbol',
           required: true,
-          validations: [
-            { in: ['Gaming', 'AI', 'System Design', 'Cloud Architecture', 'Observability'] },
-          ],
+          validations: [{ in: CATEGORIES }],
         },
         { id: 'publishDate', name: 'Publish Date', type: 'Date', required: true },
         { id: 'readTime', name: 'Read Time', type: 'Symbol', required: true },
@@ -254,6 +270,22 @@ async function upsertPost(environment, post) {
   console.log(`Published: ${post.title}`);
 }
 
+async function retirePost(environment, slug) {
+  const existing = await findEntryBySlug(environment, slug);
+  if (!existing) return;
+
+  try {
+    if (existing.isPublished()) {
+      await (await existing.unpublish()).delete();
+    } else {
+      await existing.delete();
+    }
+    console.log(`Retired entry: ${slug}`);
+  } catch (err) {
+    console.warn(`Could not retire "${slug}":`, err.message || err);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Run
 // ---------------------------------------------------------------------------
@@ -272,7 +304,11 @@ async function main() {
     await upsertPost(environment, post);
   }
 
-  console.log(`\nDone. ${posts.length} posts are live in Contentful.`);
+  for (const slug of RETIRED_SLUGS) {
+    await retirePost(environment, slug);
+  }
+
+  console.log(`\nDone. ${posts.length} posts are live across the 4 content pillars.`);
   console.log(
     'Add VITE_CONTENTFUL_SPACE_ID and VITE_CONTENTFUL_ACCESS_TOKEN (a Content Delivery API key,\n' +
       'not this management token) to your .env / Vercel project to have the live site read them.'

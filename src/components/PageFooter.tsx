@@ -16,13 +16,13 @@ export const PageFooter: React.FC = () => {
         <p className="text-chalet-muted text-sm">© Chalet Hub. All rights reserved.</p>
 
         <div className="flex items-center gap-6">
-          <Link to="/canvas-and-chill" className="text-chalet-muted hover:text-chalet-gold transition-colors text-sm flex items-center gap-2">
-            <Wine className="w-4 h-4" />
-            Canvas &amp; Chill
-          </Link>
-          <Link to="/blog" className="text-chalet-muted hover:text-chalet-ivory transition-colors text-sm flex items-center gap-2">
+          <Link to="/blog" className="text-chalet-muted hover:text-chalet-gold transition-colors text-sm flex items-center gap-2">
             <BookOpen className="w-4 h-4" />
             Journal
+          </Link>
+          <Link to="/canvas-and-chill" className="text-chalet-muted hover:text-chalet-ivory transition-colors text-sm flex items-center gap-2">
+            <Wine className="w-4 h-4" />
+            Canvas &amp; Chill
           </Link>
           <a href="#" className="text-chalet-muted hover:text-chalet-ivory transition-colors text-sm flex items-center gap-2">
             <Shield className="w-4 h-4" />

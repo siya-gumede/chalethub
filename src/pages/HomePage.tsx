@@ -120,8 +120,8 @@ function HomePage() {
       <main className="relative">
         <HeroSection onNavigate={handleNavigate} />
         <CapabilitiesSection onNavigate={handleNavigate} />
-        <ProcessSection onNavigate={handleNavigate} />
-        <FeaturedSection onNavigate={handleNavigate} />
+        <ProcessSection />
+        <FeaturedSection />
         <ImpactSection onNavigate={handleNavigate} />
         <ContactSection onNavigate={handleNavigate} />
         <ClosingSection onNavigate={handleNavigate} />

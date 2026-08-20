@@ -1,23 +1,20 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import { NotchedFrame } from '../components/NotchedFrame';
 import { ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface ProcessSectionProps {
-  onNavigate: (section: string) => void;
-}
-
-export const ProcessSection: React.FC<ProcessSectionProps> = ({ onNavigate }) => {
+export const ProcessSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLButtonElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -161,7 +158,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onNavigate }) =>
         className="absolute left-[8vw] top-[10vh] z-[4]"
         style={{ opacity: 0 }}
       >
-        <span className="label-mono text-chalet-gold">STUDIO</span>
+        <span className="label-mono text-chalet-gold">THE JOURNEY</span>
       </div>
 
       {/* Headline */}
@@ -171,21 +168,21 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onNavigate }) =>
         style={{ width: '70vw', opacity: 0 }}
       >
         <h2 className="headline-xl text-chalet-ivory">
-          <span className="block">BUILT WITH CARE</span>
-          <span className="block">SHIPPED WITH PRIDE</span>
+          <span className="block">FROM CODE</span>
+          <span className="block">TO ARCHITECTURE</span>
         </h2>
       </div>
 
       {/* Bottom Left CTA */}
-      <button 
+      <Link 
         ref={ctaRef}
-        onClick={() => onNavigate('contact')}
+        to="/blog"
         className="absolute left-[8vw] bottom-[12vh] z-[4] btn-outline group"
         style={{ opacity: 0 }}
       >
-        Meet the team
+        Explore the Journal
         <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-      </button>
+      </Link>
 
       {/* Bottom Right Paragraph */}
       <div 
@@ -194,7 +191,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onNavigate }) =>
         style={{ width: '34vw', maxWidth: '420px', opacity: 0 }}
       >
         <p className="body-text">
-          From first design doc to production—clear timelines, honest tradeoffs, and systems that hold up under load.
+          Build software → design systems → deploy systems → operate systems → make architectural decisions. One connected path, not six disconnected topics.
         </p>
       </div>
     </section>

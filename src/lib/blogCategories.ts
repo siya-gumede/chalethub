@@ -1,25 +1,27 @@
 import React from 'react';
-import { Gamepad2, Cpu, Network, Cloud, Activity } from 'lucide-react';
+import { Layers, Cloud, Activity, Sparkles } from 'lucide-react';
 
+// Aligned to the four content pillars in the Chalet Hub Business &
+// Architecture Vision (v2): Software Architecture, Cloud Architecture,
+// DevOps & Observability, AI & Emerging Technology.
 export const BLOG_CATEGORIES = [
-  'Gaming',
-  'AI',
-  'System Design',
+  'Software Architecture',
   'Cloud Architecture',
-  'Observability',
+  'DevOps & Observability',
+  'AI & Emerging Technology',
 ] as const;
 
 export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
 
 const ICONS: Record<BlogCategory, React.ComponentType<{ className?: string }>> = {
-  Gaming: Gamepad2,
-  AI: Cpu,
-  'System Design': Network,
+  'Software Architecture': Layers,
   'Cloud Architecture': Cloud,
-  Observability: Activity,
+  'DevOps & Observability': Activity,
+  'AI & Emerging Technology': Sparkles,
 };
 
 export const categoryIcon = (category: BlogCategory) => {
   const Icon = ICONS[category];
+  if (!Icon) return null;
   return React.createElement(Icon, { className: 'w-4 h-4' });
 };

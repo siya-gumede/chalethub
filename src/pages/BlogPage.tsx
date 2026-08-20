@@ -49,11 +49,11 @@ export const BlogPage: React.FC = () => {
       <section className="px-6 md:px-[8vw] pt-20 pb-14 border-b border-chalet-ivory/10">
         <span className="label-mono text-chalet-gold">THE JOURNAL</span>
         <h1 className="headline-xl text-chalet-ivory mt-4 max-w-3xl">
-          NOTES FROM THE STUDIO.
+          NOTES ON THE JOURNEY.
         </h1>
         <p className="body-text max-w-xl mt-6 text-base md:text-lg">
-          Thoughts on cloud architecture, automation, and observability — with the occasional
-          detour into gaming and AI.
+          Practical, connected knowledge across software architecture, cloud, DevOps,
+          observability, and AI — for developers growing into architects.
         </p>
 
         {/* Filter tabs */}
