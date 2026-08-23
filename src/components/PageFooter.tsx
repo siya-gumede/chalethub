@@ -15,7 +15,7 @@ export const PageFooter: React.FC = () => {
 
         <p className="text-chalet-muted text-sm">© Chalet Hub. All rights reserved.</p>
 
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
           <Link to="/blog" className="text-chalet-muted hover:text-chalet-gold transition-colors text-sm flex items-center gap-2">
             <BookOpen className="w-4 h-4" />
             Journal

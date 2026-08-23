@@ -83,6 +83,12 @@ function HomePage() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isFormField =
+        target &&
+        (['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName) || target.isContentEditable);
+      if (isFormField) return;
+
       const pinnedSections = ['hero', 'capabilities', 'process', 'featured', 'impact', 'contact', 'closing'];
       const currentScroll = window.scrollY;
       const windowHeight = window.innerHeight;

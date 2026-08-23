@@ -30,7 +30,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) =>
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=85%',
           pin: true,
           scrub: 0.6,
         }
@@ -79,35 +79,35 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) =>
         leftPanelRef.current,
         { x: 0, opacity: 1 },
         { x: '-20vw', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         rightPanelRef.current,
         { x: 0, opacity: 1 },
         { x: '20vw', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         [labelRef.current, headlineRef.current, bodyRef.current, ctaRef.current],
         { y: 0, opacity: 1 },
         { y: '-6vh', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         floatingCardRef.current,
         { y: 0, scale: 1, opacity: 1 },
         { y: '10vh', scale: 0.96, opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         frameRef.current,
         { opacity: 1 },
         { opacity: 0, ease: 'power2.in' },
-        0.75
+        0.55
       );
 
     }, section);

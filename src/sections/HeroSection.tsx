@@ -76,7 +76,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=85%',
           pin: true,
           scrub: 0.6,
           onLeaveBack: () => {
@@ -94,7 +94,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           headlineLines,
           { x: 0, opacity: 1 },
           { x: '-18vw', opacity: 0, ease: 'power2.in' },
-          0.7
+          0.4
         );
       }
 
@@ -102,35 +102,35 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
         microcopyRef.current,
         { y: 0, opacity: 1 },
         { y: '10vh', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.4
       );
 
       scrollTl.fromTo(
         ctaRef.current,
         { x: 0, opacity: 1 },
         { x: '10vw', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.4
       );
 
       scrollTl.fromTo(
         frameRef.current,
         { scale: 1, opacity: 0.75 },
         { scale: 1.06, opacity: 0, ease: 'power2.in' },
-        0.7
+        0.4
       );
 
       scrollTl.fromTo(
         bgRef.current,
         { scale: 1 },
         { scale: 1.05, ease: 'none' },
-        0.7
+        0.4
       );
 
       scrollTl.fromTo(
         labelRef.current,
         { opacity: 1 },
         { opacity: 0, ease: 'power2.in' },
-        0.8
+        0.5
       );
 
     }, section);

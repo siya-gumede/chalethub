@@ -28,7 +28,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onNavigate }) =>
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=85%',
           pin: true,
           scrub: 0.6,
         }
@@ -77,35 +77,35 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onNavigate }) =>
         bgRef.current,
         { opacity: 1 },
         { opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         frameRef.current,
         { opacity: 1 },
         { opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         headlineRef.current,
         { y: 0, opacity: 1 },
         { y: '-6vh', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         [paragraphRef.current, ctaRef.current],
         { y: 0, opacity: 1 },
         { y: '6vh', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         labelRef.current,
         { opacity: 1 },
         { opacity: 0, ease: 'power2.in' },
-        0.75
+        0.55
       );
 
     }, section);

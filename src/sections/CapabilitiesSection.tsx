@@ -29,7 +29,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onNavi
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=85%',
           pin: true,
           scrub: 0.6,
         }
@@ -85,42 +85,42 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onNavi
         leftPanelRef.current,
         { x: 0, opacity: 1 },
         { x: '-30vw', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         rightPanelRef.current,
         { x: 0, opacity: 1 },
         { x: '20vw', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         frameRef.current,
         { scale: 1, opacity: 1 },
         { scale: 1.06, opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         headlineRef.current,
         { y: 0, opacity: 1 },
         { y: '-10vh', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         [bodyRef.current, ctaRef.current],
         { y: 0, opacity: 1 },
         { y: '8vh', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.5
       );
 
       scrollTl.fromTo(
         labelRef.current,
         { opacity: 1 },
         { opacity: 0, ease: 'power2.in' },
-        0.75
+        0.55
       );
 
     }, section);
