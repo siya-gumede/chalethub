@@ -27,8 +27,8 @@
 
 import { createClient } from 'contentful-management';
 
-const SPACE_ID = 'r66pueq4mhod';
-const MANAGEMENT_TOKEN = 'CFPAT-cfSWsAksCgeUbAmklRW2Fh-NOzYHBdmEIkGu8r6pq9o';
+const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
+const MANAGEMENT_TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN;
 const ENVIRONMENT_ID = process.env.CONTENTFUL_ENVIRONMENT || 'master';
 const CONTENT_TYPE_ID = 'blogPost';
 
